@@ -21,7 +21,7 @@
 #include "esp32-webserver.h"
 
 
-static int cntrl_pins[16] = {16, 17, 18, 19, 1, 3, 25, 26, 27, 14, 12, 13, 23, 22, 21, 5};
+static int cntrl_pins[16] = {16, 17, 18, 19, 34, 35, 25, 26, 27, 14, 12, 13, 23, 22, 21, 5};
 
 int cntrl_states[16];
 
