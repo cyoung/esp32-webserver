@@ -234,11 +234,10 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
 	case ESP_GATTS_STOP_EVT:
 		break;
 	case ESP_GATTS_CONNECT_EVT:
-		ESP_LOGI(GATTS_TAG, "SERVICE_START_EVT, conn_id %d, remote %02x:%02x:%02x:%02x:%02x:%02x:, is_conn %d\n",
-					param->connect.conn_id,
-					param->connect.remote_bda[0], param->connect.remote_bda[1], param->connect.remote_bda[2],
-					param->connect.remote_bda[3], param->connect.remote_bda[4], param->connect.remote_bda[5],
-					param->connect.is_connected);
+        ESP_LOGI(GATTS_TAG, "ESP_GATTS_CONNECT_EVT, conn_id %d, remote %02x:%02x:%02x:%02x:%02x:%02x:",
+                 param->connect.conn_id,
+                 param->connect.remote_bda[0], param->connect.remote_bda[1], param->connect.remote_bda[2],
+                 param->connect.remote_bda[3], param->connect.remote_bda[4], param->connect.remote_bda[5]);
 		gl_profile_tab[PROFILE_A_APP_ID].conn_id = param->connect.conn_id;
 		break;
 	case ESP_GATTS_DISCONNECT_EVT:
@@ -285,7 +284,8 @@ static void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_
 void bt_main() {
 	esp_err_t ret;
 	
-	esp_bt_controller_init();
+    esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
+    ret = esp_bt_controller_init(&bt_cfg);
 	
 	ret = esp_bluedroid_init();
 	if (ret) {
